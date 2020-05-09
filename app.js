@@ -2,7 +2,7 @@ const o = 'fa-circle-o';
 const x = 'fa-times';
 const title = document.querySelector('.title');
 let currentPlayer = o;
-let gameActive = true;
+let gameActive = false;
 let mode = 0;
 let board = ['','','','','','','','',''];
 let aiPicked = true;
@@ -175,9 +175,11 @@ const vsPlayer = document.querySelector('.btn1');
 const vsAI = document.querySelector('.btn2');
 
 vsPlayer.addEventListener('click', function(){
+    gameActive = true;
     mode = 0;
 })
 
 vsAI.addEventListener('click', function(){
+    gameActive = true;
     mode = 1;
 })
