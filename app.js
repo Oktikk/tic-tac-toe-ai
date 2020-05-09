@@ -40,6 +40,7 @@ function selectBox(clickedBox, clickedBoxIndex){
     if (!checkWinConditions() && board.every(box => box != '')){
         title.innerHTML = "REMIS";
         gameActive = false;
+        document.querySelector('.btn').style.visibility = 'visible';
     }
     if (checkWinConditions()){
         title.innerHTML = checkWinConditions();
@@ -47,6 +48,7 @@ function selectBox(clickedBox, clickedBoxIndex){
     };
     console.log(aiPicked);
     if(!aiPicked){
+        gameActive = false;
         aiPickBox();
     }
 }
@@ -59,7 +61,10 @@ function aiPickBox(){
     }
     let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
     aiPicked = true;
-    setTimeout(() => selectBox(pickedBox, pickedBoxIndex), 500);
+    setTimeout(() => {
+        selectBox(pickedBox, pickedBoxIndex);
+        gameActive = true;
+    }, 300);
 }
 
 
@@ -87,11 +92,13 @@ function checkWinConditions(){
             winner = 'Wygrywa: O';
             gameActive = false;
             drawLine(combination['0'],combination['2']);
+            document.querySelector('.btn').style.visibility = 'visible';
         }
         if(combination.every(index => moves[x].indexOf(index) > -1)) {
             winner = 'Wygrywa: X';
             gameActive = false;
             drawLine(combination['0'],combination['2']);
+            document.querySelector('.btn').style.visibility = 'visible';
         }
     });
     return winner;
@@ -169,19 +176,18 @@ btn.addEventListener('click', function() {
     let c = document.querySelector('.winLine');
     let ctx = c.getContext('2d');
     ctx.clearRect(0,0, c.width, c.height);
+    setTimeout(() => document.querySelector('.btn').style.visibility = 'hidden', 100);
 })
 
 const vsPlayer = document.querySelector('.btn1');
 const vsAI = document.querySelector('.btn2');
 
 vsPlayer.addEventListener('click', function(){
-    document.querySelector('.btn').style.visibility = 'visible';
     gameActive = true;
     mode = 0;
 })
 
 vsAI.addEventListener('click', function(){
-    document.querySelector('.btn').style.visibility = 'visible';
     gameActive = true;
     mode = 1;
 })

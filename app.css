@@ -41,9 +41,6 @@ div{
     font-size: 2rem; color: white;
     z-index: 3;
 }
-/* .box:hover {
-    background: #a4b0be;
-} */
 .title {
     font-family: 'Ubuntu', sans-serif;
     font-size: 1.2rem;
@@ -73,7 +70,7 @@ div{
     transition: all .1s linear;
     -webkit-user-select: none;
 }
-.btns {
+.buttons {
     display: flex;
     justify-content: center;
     align-items: center;
