@@ -1,0 +1,109 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #747d8c;
+}
+div{
+    color: white;
+}
+.winLine{
+    position: fixed;
+    z-index: 1;
+}
+.bgcol{
+    position: fixed;
+    background-color: white;
+    z-index:2;
+}
+.ttt {
+    font-family: 'Ubuntu';
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+.board {
+    width: 306px;
+    background: rgb(29, 28, 28);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 100px);
+    gap: 3px;
+    display: grid;
+    cursor: pointer;
+    z-index: 3;
+}
+.box {
+    background-color: #747d8c;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    font-size: 2rem; color: white;
+    z-index: 3;
+}
+/* .box:hover {
+    background: #a4b0be;
+} */
+.title {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+.btn {
+    background-color: #747d8c;
+    width: 100px;
+    margin-top: 1em;
+    padding: 5px;
+    font-size: 1.5rem;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #ddd, 0px 7px 6px 0px rgba(0,0,0,0.5);
+    transition: all .1s linear;
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+    clear: right;
+}
+.btn:active {
+    margin-top: 1.1em;
+    box-shadow: 0px 2px 0px 0px #ddd, 0px 4px 3px -1px rgba(0,0,0,0.5);
+    transition: all .1s linear;
+    -webkit-user-select: none;
+}
+.btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn1, .btn2 {
+    background-color: #747d8c;
+    width: 120px;
+    margin: 0.5em;
+    padding: 5px;
+    font-size: 1.5rem;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #ddd, 0px 7px 6px 0px rgba(0,0,0,0.5);
+    transition: all .1s linear;
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+    clear: right;
+}
+.btn1:active, .btn2:active{
+    margin-top: 0.6em;
+    box-shadow: 0px 2px 0px 0px #ddd, 0px 4px 3px -1px rgba(0,0,0,0.5);
+    transition: all .1s linear;
+    -webkit-user-select: none;
+}
+.line {
+    visibility: visible; 
+    height: 0px; 
+    width: 250px; 
+    border: 1px solid black;
+    position: absolute;
+}
