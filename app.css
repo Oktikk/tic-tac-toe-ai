@@ -50,6 +50,7 @@ div{
     padding: 10px;
 }
 .btn {
+    visibility: hidden;
     background-color: #747d8c;
     width: 100px;
     margin-top: 1em;

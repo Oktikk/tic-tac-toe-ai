@@ -59,7 +59,7 @@ function aiPickBox(){
     }
     let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
     aiPicked = true;
-    selectBox(pickedBox, pickedBoxIndex);
+    setTimeout(() => selectBox(pickedBox, pickedBoxIndex), 500);
 }
 
 
@@ -175,11 +175,13 @@ const vsPlayer = document.querySelector('.btn1');
 const vsAI = document.querySelector('.btn2');
 
 vsPlayer.addEventListener('click', function(){
+    document.querySelector('.btn').style.visibility = 'visible';
     gameActive = true;
     mode = 0;
 })
 
 vsAI.addEventListener('click', function(){
+    document.querySelector('.btn').style.visibility = 'visible';
     gameActive = true;
     mode = 1;
 })
