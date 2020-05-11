@@ -70,11 +70,11 @@ function aiPickBox(){
 
 
 function miniMax(board, player){
-    if(checkWinConditions() == 'Wygrywa: O')
+    if(checkWin() == 'Wygrywa: O')
         return { evaluation : -10 };
-    else if(checkWinConditions() == 'Wygrywa: X')
+    else if(checkWin() == 'Wygrywa: X')
         return { evaluation : 10 };
-    else if(checkWinConditions() == 'REMIS')
+    else if(checkWin() == 'REMIS')
         return { evaluation : 0 };
     
     let empty = getEmptySpaces(board);
@@ -147,6 +147,27 @@ function currentPlayerChange(){
     }
 }
 
+function checkWin(){
+    let winner = '';
+    let moves = {
+        'fa-circle-o': [],
+        'fa-times': []
+    };
+    board.forEach((field,index) => moves[field] ? moves[field].push(index) : null);
+    combinations.forEach(combination => {
+        if(combination.every(index => moves[o].indexOf(index) > -1)) {
+            winner = 'Wygrywa: O';
+        }
+        if(combination.every(index => moves[x].indexOf(index) > -1)) {
+            winner = 'Wygrywa: X';
+        }
+        if(board.every(box => box != '') && winner == ''){
+            winner = "REMIS";
+        }
+    });
+    return winner;
+}
+
 function checkWinConditions(){
     let winner = '';
     let moves = {
@@ -158,13 +179,13 @@ function checkWinConditions(){
         if(combination.every(index => moves[o].indexOf(index) > -1)) {
             winner = 'Wygrywa: O';
             gameActive = false;
-            //drawLine(combination['0'],combination['2']);
+            drawLine(combination['0'],combination['2']);
             document.querySelector('.btn').style.visibility = 'visible';
         }
         if(combination.every(index => moves[x].indexOf(index) > -1)) {
             winner = 'Wygrywa: X';
             gameActive = false;
-            //drawLine(combination['0'],combination['2']);
+            drawLine(combination['0'],combination['2']);
             document.querySelector('.btn').style.visibility = 'visible';
         }
         if(board.every(box => box != '') && winner == ''){
