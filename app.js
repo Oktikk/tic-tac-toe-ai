@@ -37,16 +37,10 @@ function selectBox(clickedBox, clickedBoxIndex){
     board[clickedBoxIndex] = currentPlayer;
     clickedBox.classList.add(currentPlayer);
     currentPlayerChange();
-    if (!checkWinConditions() && board.every(box => box != '')){
-        title.innerHTML = "REMIS";
-        gameActive = false;
-        document.querySelector('.btn').style.visibility = 'visible';
-    }
     if (checkWinConditions()){
         title.innerHTML = checkWinConditions();
         return;
     };
-    console.log(aiPicked);
     if(!aiPicked){
         gameActive = false;
         aiPickBox();
@@ -54,21 +48,94 @@ function selectBox(clickedBox, clickedBoxIndex){
 }
 
 function aiPickBox(){
-    let pickedBoxIndex = Math.floor(Math.random() * 9);
-    if(board[pickedBoxIndex] !== ''){
-        aiPickBox();
-        return;
-    }
-    let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
+    let id = miniMax(board, currentPlayer).id;
+    let pickedBox = document.querySelector("[data-box='"+id+"']");
     aiPicked = true;
     setTimeout(() => {
-        selectBox(pickedBox, pickedBoxIndex);
+        selectBox(pickedBox, id);
         gameActive = true;
     }, 300);
+    // let pickedBoxIndex = Math.floor(Math.random() * 9);
+    // if(board[pickedBoxIndex] === ""){
+    //     aiPickBox();
+    //     return;
+    // }
+    // let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
+    // aiPicked = true;
+    // setTimeout(() => {
+    //     selectBox(pickedBox, pickedBoxIndex);
+    //     gameActive = true;
+    // }, 300);
 }
 
 
+function miniMax(board, player){
+    if(checkWinConditions() == 'Wygrywa: O')
+        return { evaluation : -10 };
+    else if(checkWinConditions() == 'Wygrywa: X')
+        return { evaluation : 10 };
+    else if(checkWinConditions() == 'REMIS')
+        return { evaluation : 0 };
+    
+    let empty = getEmptySpaces(board);
+    let moves = [];
 
+    for(let i=0; i< empty.length; i++){
+
+        let id = empty[i];
+        let backup = board[id];
+        
+        board[id] = player;
+
+        let move = {};
+        move.id = id;
+
+        if(player == x){
+            move.evaluation = miniMax(board, o).evaluation;
+        }
+        else{
+            move.evaluation = miniMax(board, x).evaluation;
+        }
+
+        board[id] = backup;
+
+        moves.push(move);
+    }
+
+    let bestMove;
+
+    if (player == x){
+        let bestEvaluation = -Infinity;
+        for(let i=0; i<moves.length; i++){
+            if (moves[i].evaluation > bestEvaluation){
+                bestEvaluation = moves[i].evaluation;
+                bestMove = moves[i];
+            }
+        }
+    }
+    else{
+        let bestEvaluation = +Infinity;
+        for(let i=0; i<moves.length; i++){
+            if (moves[i].evaluation < bestEvaluation){
+                bestEvaluation = moves[i].evaluation;
+                bestMove = moves[i];
+            }
+        }
+    }
+    return bestMove;
+}   
+
+
+function getEmptySpaces(board){
+    //bebobebo
+    let empty = [];
+    for(let i=0; i<board.length; i++){
+        if(board[i] == ''){
+            empty.push(i);
+        }
+    }
+    return empty;
+}
 
 function currentPlayerChange(){
     currentPlayer = currentPlayer === o ? x : o;
@@ -91,13 +158,18 @@ function checkWinConditions(){
         if(combination.every(index => moves[o].indexOf(index) > -1)) {
             winner = 'Wygrywa: O';
             gameActive = false;
-            drawLine(combination['0'],combination['2']);
+            //drawLine(combination['0'],combination['2']);
             document.querySelector('.btn').style.visibility = 'visible';
         }
         if(combination.every(index => moves[x].indexOf(index) > -1)) {
             winner = 'Wygrywa: X';
             gameActive = false;
-            drawLine(combination['0'],combination['2']);
+            //drawLine(combination['0'],combination['2']);
+            document.querySelector('.btn').style.visibility = 'visible';
+        }
+        if(board.every(box => box != '') && winner == ''){
+            winner = "REMIS";
+            gameActive = false;
             document.querySelector('.btn').style.visibility = 'visible';
         }
     });
