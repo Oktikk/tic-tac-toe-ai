@@ -65,7 +65,7 @@ function aiPickBox(){
     else if(level == 2){
         let p = Math.floor(Math.random()*100);
         console.log(p);
-        if(p < 60){
+        if(p < 70){
             let id = miniMax(board, currentPlayer).id;
             let pickedBox = document.querySelector("[data-box='"+id+"']");
             aiPicked = true;
