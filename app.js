@@ -52,8 +52,8 @@ function aiPickBox(){
     let pickedBox = document.querySelector("[data-box='"+id+"']");
     aiPicked = true;
     setTimeout(() => {
-        selectBox(pickedBox, id);
         gameActive = true;
+        selectBox(pickedBox, id);
     }, 300);
     // let pickedBoxIndex = Math.floor(Math.random() * 9);
     // if(board[pickedBoxIndex] === ""){
