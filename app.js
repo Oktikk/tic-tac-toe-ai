@@ -63,6 +63,32 @@ function aiPickBox(){
         }, 300);
     }
     else if(level == 2){
+        let p = Math.floor(Math.random()*100);
+        console.log(p);
+        if(p < 60){
+            let id = miniMax(board, currentPlayer).id;
+            let pickedBox = document.querySelector("[data-box='"+id+"']");
+            aiPicked = true;
+            setTimeout(() => {
+                gameActive = true;
+                selectBox(pickedBox, id);
+            }, 300);
+        }
+        else{
+            let pickedBoxIndex = Math.floor(Math.random() * 9);
+            if(board[pickedBoxIndex] !== ''){
+                aiPickBox();
+                return;
+            }
+            let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
+            aiPicked = true;
+            setTimeout(() => {
+                selectBox(pickedBox, pickedBoxIndex);
+                gameActive = true;
+            }, 300);
+        }
+    }
+    else if(level == 3){
         let id = miniMax(board, currentPlayer).id;
         let pickedBox = document.querySelector("[data-box='"+id+"']");
         aiPicked = true;
@@ -298,6 +324,10 @@ aiLevel.addEventListener('click', function(){
         level = 2;
     }
     else if (level == 2){
+        aiLevel.innerHTML = 'Ai level: 3';
+        level = 3;
+    }
+    else if (level == 3){
         aiLevel.innerHTML = 'Ai level: 1';
         level = 1;
     }
