@@ -47,13 +47,12 @@ div{
     padding: 10px;
 }
 .btn {
-    visibility: hidden;
     background-color: #747d8c;
     width: 100px;
     margin-top: 1em;
     padding: 5px;
     font-size: 1.5rem;
-    display: flex; 
+    display: none; 
     justify-content: center; 
     align-items: center;
     border: 1px solid #ddd;
@@ -92,11 +91,28 @@ div{
     cursor: pointer;
     clear: right;
 }
-.btn1:active, .btn2:active{
+.btn1:active, .btn2:active, .ailevel:active{
     margin-top: 0.6em;
     box-shadow: 0px 2px 0px 0px #ddd, 0px 4px 3px -1px rgba(0,0,0,0.5);
     transition: all .1s linear;
     -webkit-user-select: none;
+}
+.ailevel {
+    display: none;
+    background-color: #747d8c;
+    width: 120px;
+    margin: 0.5em;
+    padding: 5px;
+    font-size: 1.5rem;
+    justify-content: center; 
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #ddd, 0px 7px 6px 0px rgba(0,0,0,0.5);
+    transition: all .1s linear;
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+    clear: right;
 }
 .line {
     visibility: visible; 

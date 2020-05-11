@@ -6,6 +6,7 @@ let gameActive = false;
 let mode = 0;
 let board = ['','','','','','','','',''];
 let aiPicked = true;
+let level = 1;
 const combinations = [
     [0,1,2], 
     [3,4,5], 
@@ -48,24 +49,28 @@ function selectBox(clickedBox, clickedBoxIndex){
 }
 
 function aiPickBox(){
-    let id = miniMax(board, currentPlayer).id;
-    let pickedBox = document.querySelector("[data-box='"+id+"']");
-    aiPicked = true;
-    setTimeout(() => {
-        gameActive = true;
-        selectBox(pickedBox, id);
-    }, 300);
-    // let pickedBoxIndex = Math.floor(Math.random() * 9);
-    // if(board[pickedBoxIndex] === ""){
-    //     aiPickBox();
-    //     return;
-    // }
-    // let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
-    // aiPicked = true;
-    // setTimeout(() => {
-    //     selectBox(pickedBox, pickedBoxIndex);
-    //     gameActive = true;
-    // }, 300);
+    if(level == 1){
+        let pickedBoxIndex = Math.floor(Math.random() * 9);
+        if(board[pickedBoxIndex] !== ''){
+            aiPickBox();
+            return;
+        }
+        let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
+        aiPicked = true;
+        setTimeout(() => {
+            selectBox(pickedBox, pickedBoxIndex);
+            gameActive = true;
+        }, 300);
+    }
+    else if(level == 2){
+        let id = miniMax(board, currentPlayer).id;
+        let pickedBox = document.querySelector("[data-box='"+id+"']");
+        aiPicked = true;
+        setTimeout(() => {
+           gameActive = true;
+           selectBox(pickedBox, id);
+        }, 300);
+    }
 }
 
 
@@ -180,18 +185,18 @@ function checkWinConditions(){
             winner = 'Wygrywa: O';
             gameActive = false;
             drawLine(combination['0'],combination['2']);
-            document.querySelector('.btn').style.visibility = 'visible';
+            document.querySelector('.btn').style.display = 'flex';
         }
         if(combination.every(index => moves[x].indexOf(index) > -1)) {
             winner = 'Wygrywa: X';
             gameActive = false;
             drawLine(combination['0'],combination['2']);
-            document.querySelector('.btn').style.visibility = 'visible';
+            document.querySelector('.btn').style.display = 'flex';
         }
         if(board.every(box => box != '') && winner == ''){
             winner = "REMIS";
             gameActive = false;
-            document.querySelector('.btn').style.visibility = 'visible';
+            document.querySelector('.btn').style.display = 'flex';
         }
     });
     return winner;
@@ -269,11 +274,12 @@ btn.addEventListener('click', function() {
     let c = document.querySelector('.winLine');
     let ctx = c.getContext('2d');
     ctx.clearRect(0,0, c.width, c.height);
-    setTimeout(() => document.querySelector('.btn').style.visibility = 'hidden', 100);
+    setTimeout(() => document.querySelector('.btn').style.display = 'none', 100);
 })
 
 const vsPlayer = document.querySelector('.btn1');
 const vsAI = document.querySelector('.btn2');
+const aiLevel = document.querySelector('.ailevel');
 
 vsPlayer.addEventListener('click', function(){
     gameActive = true;
@@ -283,4 +289,16 @@ vsPlayer.addEventListener('click', function(){
 vsAI.addEventListener('click', function(){
     gameActive = true;
     mode = 1;
+    aiLevel.style.display = 'flex';
+})
+
+aiLevel.addEventListener('click', function(){
+    if (level == 1){
+        aiLevel.innerHTML = 'Ai level: 2';
+        level = 2;
+    }
+    else if (level == 2){
+        aiLevel.innerHTML = 'Ai level: 1';
+        level = 1;
+    }
 })
