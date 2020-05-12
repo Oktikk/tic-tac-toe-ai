@@ -310,7 +310,7 @@ function restartGame() {
 };
 
 const vsPlayer = document.querySelector('.btn1');
-const vsAI = document.querySelector('.btn2');
+const vsAi = document.querySelector('.btn2');
 const aiLevel = document.querySelector('.ailevel');
 const changeChar = document.querySelector('.changeChar');
 const xo = document.querySelector('.xo');
@@ -318,12 +318,16 @@ const xo = document.querySelector('.xo');
 vsPlayer.addEventListener('click', function(){
     gameActive = true;
     mode = 0;
+    vsAi.classList.remove('active');
+    vsPlayer.classList.add('active');
     aiLevel.style.display = 'none';
 })
 
-vsAI.addEventListener('click', function(){
+vsAi.addEventListener('click', function(){
     gameActive = true;
     mode = 1;
+    vsPlayer.classList.remove('active');
+    vsAi.classList.add('active');
     aiLevel.style.display = 'flex';
 })
 

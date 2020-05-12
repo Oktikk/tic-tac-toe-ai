@@ -91,7 +91,7 @@ div{
     cursor: pointer;
     clear: right;
 }
-.btn1:active, .btn2:active, .ailevel:active{
+.ailevel:active, .active{
     margin-top: 0.6em;
     box-shadow: 0px 2px 0px 0px #ddd, 0px 4px 3px -1px rgba(0,0,0,0.5);
     transition: all .1s linear;
