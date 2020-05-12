@@ -1,7 +1,7 @@
 const o = 'fa-circle-o';
 const x = 'fa-times';
 const title = document.querySelector('.title');
-let currentPlayer = x;
+let currentPlayer = o;
 let gameActive = false;
 let mode = 0;
 let board = ['','','','','','','','',''];
@@ -51,7 +51,8 @@ function selectBox(clickedBox, clickedBoxIndex){
 
 function aiPickBox(){
     if(level == 1){
-        let pickedBoxIndex = Math.floor(Math.random() * 9);
+        let empty = getEmptySpaces(board);
+        let pickedBoxIndex = empty[Math.floor(Math.random() * empty.length)];
         if(board[pickedBoxIndex] !== ''){
             aiPickBox();
             return;
@@ -75,7 +76,8 @@ function aiPickBox(){
             }, 300);
         }
         else{
-            let pickedBoxIndex = Math.floor(Math.random() * 9);
+            let empty = getEmptySpaces(board);
+            let pickedBoxIndex = empty[Math.floor(Math.random() * empty.length)];
             if(board[pickedBoxIndex] !== ''){
                 aiPickBox();
                 return;
