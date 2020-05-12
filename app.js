@@ -51,18 +51,30 @@ function selectBox(clickedBox, clickedBoxIndex){
 
 function aiPickBox(){
     if(level == 1){
-        let empty = getEmptySpaces(board);
-        let pickedBoxIndex = empty[Math.floor(Math.random() * empty.length)];
-        if(board[pickedBoxIndex] !== ''){
-            aiPickBox();
-            return;
+        let p = Math.floor(Math.random()*100);
+        if(p < 40){
+            let id = miniMax(board, currentPlayer).id;
+            let pickedBox = document.querySelector("[data-box='"+id+"']");
+            aiPicked = true;
+            setTimeout(() => {
+                gameActive = true;
+                selectBox(pickedBox, id);
+            }, 300);
         }
-        let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
-        aiPicked = true;
-        setTimeout(() => {
-            selectBox(pickedBox, pickedBoxIndex);
-            gameActive = true;
-        }, 300);
+        else{
+            let empty = getEmptySpaces(board);
+            let pickedBoxIndex = empty[Math.floor(Math.random() * empty.length)];
+            if(board[pickedBoxIndex] !== ''){
+                aiPickBox();
+                return;
+            }
+            let pickedBox = document.querySelector("[data-box='"+pickedBoxIndex+"']");
+            aiPicked = true;
+            setTimeout(() => {
+                selectBox(pickedBox, pickedBoxIndex);
+                gameActive = true;
+            }, 300);
+        }
     }
     else if(level == 2){
         let p = Math.floor(Math.random()*100);
