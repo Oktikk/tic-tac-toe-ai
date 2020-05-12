@@ -1,7 +1,7 @@
 const o = 'fa-circle-o';
 const x = 'fa-times';
 const title = document.querySelector('.title');
-let currentPlayer = o;
+let currentPlayer = x;
 let gameActive = false;
 let mode = 0;
 let board = ['','','','','','','','',''];
@@ -64,7 +64,6 @@ function aiPickBox(){
     }
     else if(level == 2){
         let p = Math.floor(Math.random()*100);
-        console.log(p);
         if(p < 70){
             let id = miniMax(board, currentPlayer).id;
             let pickedBox = document.querySelector("[data-box='"+id+"']");
@@ -290,7 +289,8 @@ function drawLine(b,e) {
 }
 
 const btn = document.querySelector('.btn');
-btn.addEventListener('click', function() {
+btn.addEventListener('click', restartGame);
+function restartGame() {
     gameActive = true;
     boxes.forEach(box => box.classList.remove('fa-circle-o','fa-times'));
     board = ['','','','','','','','',''];
@@ -301,15 +301,18 @@ btn.addEventListener('click', function() {
     let ctx = c.getContext('2d');
     ctx.clearRect(0,0, c.width, c.height);
     setTimeout(() => document.querySelector('.btn').style.display = 'none', 100);
-})
+};
 
 const vsPlayer = document.querySelector('.btn1');
 const vsAI = document.querySelector('.btn2');
 const aiLevel = document.querySelector('.ailevel');
+const changeChar = document.querySelector('.changeChar');
+const xo = document.querySelector('.xo');
 
 vsPlayer.addEventListener('click', function(){
     gameActive = true;
     mode = 0;
+    aiLevel.style.display = 'none';
 })
 
 vsAI.addEventListener('click', function(){
@@ -330,5 +333,27 @@ aiLevel.addEventListener('click', function(){
     else if (level == 3){
         aiLevel.innerHTML = 'Ai level: 1';
         level = 1;
+    }
+})
+
+changeChar.addEventListener('click', function(){
+    changeChar.style.display = 'none';
+    xo.style.display = 'flex';
+    restartGame();
+})
+
+document.querySelector('.o').addEventListener('click', function(){
+    changeChar.style.display = 'flex';
+    xo.style.display = 'none';
+    if(currentPlayer == 'fa-times'){
+        currentPlayerChange();
+    }
+})
+
+document.querySelector('.x').addEventListener('click', function(){
+    changeChar.style.display = 'flex';
+    xo.style.display = 'none';
+    if(currentPlayer == 'fa-circle-o'){
+        currentPlayerChange();
     }
 })
