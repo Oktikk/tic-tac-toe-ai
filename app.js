@@ -7,6 +7,7 @@ let mode = 0;
 let board = ['','','','','','','','',''];
 let aiPicked = true;
 let level = 1;
+let choice = o;
 const combinations = [
     [0,1,2], 
     [3,4,5], 
@@ -294,8 +295,13 @@ function restartGame() {
     gameActive = true;
     boxes.forEach(box => box.classList.remove('fa-circle-o','fa-times'));
     board = ['','','','','','','','',''];
-    title.innerHTML = 'Wybiera: O';
-    currentPlayer = o;
+    if (choice == o){
+        title.innerHTML = 'Wybiera: O';
+    }
+    else if (choice == x){
+        title.innerHTML = 'Wybiera: X';
+    }
+    currentPlayer = choice;
     document.querySelector('.winLine').style.zIndex = '1';
     let c = document.querySelector('.winLine');
     let ctx = c.getContext('2d');
@@ -334,26 +340,29 @@ aiLevel.addEventListener('click', function(){
         aiLevel.innerHTML = 'Ai level: 1';
         level = 1;
     }
+    restartGame();
 })
 
 changeChar.addEventListener('click', function(){
     changeChar.style.display = 'none';
     xo.style.display = 'flex';
-    restartGame();
+    if(gameActive){
+        restartGame();
+    }
 })
 
 document.querySelector('.o').addEventListener('click', function(){
     changeChar.style.display = 'flex';
     xo.style.display = 'none';
-    if(currentPlayer == 'fa-times'){
-        currentPlayerChange();
-    }
+    choice = o;
+    currentPlayer = choice;
+    title.innerHTML = 'Wybiera: O';
 })
 
 document.querySelector('.x').addEventListener('click', function(){
     changeChar.style.display = 'flex';
     xo.style.display = 'none';
-    if(currentPlayer == 'fa-circle-o'){
-        currentPlayerChange();
-    }
+    choice = x;
+    currentPlayer = choice;
+    title.innerHTML = 'Wybiera: X';
 })
