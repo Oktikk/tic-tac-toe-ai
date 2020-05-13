@@ -364,9 +364,6 @@ aiLevel.addEventListener('click', function(){
 changeChar.addEventListener('click', function(){
     changeChar.style.display = 'none';
     xo.style.display = 'flex';
-    if(gameActive){
-        restartGame();
-    }
 })
 
 document.querySelector('.o').addEventListener('click', function(){
@@ -375,6 +372,9 @@ document.querySelector('.o').addEventListener('click', function(){
     choice = o;
     currentPlayer = choice;
     title.innerHTML = 'Wybiera: O';
+    if(gameActive){
+        restartGame();
+    }
 })
 
 document.querySelector('.x').addEventListener('click', function(){
@@ -383,4 +383,7 @@ document.querySelector('.x').addEventListener('click', function(){
     choice = x;
     currentPlayer = choice;
     title.innerHTML = 'Wybiera: X';
+    if(gameActive){
+        restartGame();
+    }
 })
