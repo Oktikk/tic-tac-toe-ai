@@ -330,21 +330,21 @@ const changeChar = document.querySelector('.changeChar');
 const xo = document.querySelector('.xo');
 
 vsPlayer.addEventListener('click', function(){
+    restartGame();
     gameActive = true;
     mode = 0;
     vsAi.classList.remove('active');
     vsPlayer.classList.add('active');
     aiLevel.style.display = 'none';
-    restartGame();
 })
 
 vsAi.addEventListener('click', function(){
+    restartGame();
     gameActive = true;
     mode = 1;
     vsPlayer.classList.remove('active');
     vsAi.classList.add('active');
     aiLevel.style.display = 'flex';
-    restartGame();
 })
 
 aiLevel.addEventListener('click', function(){
