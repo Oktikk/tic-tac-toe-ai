@@ -335,6 +335,7 @@ vsPlayer.addEventListener('click', function(){
     vsAi.classList.remove('active');
     vsPlayer.classList.add('active');
     aiLevel.style.display = 'none';
+    restartGame();
 })
 
 vsAi.addEventListener('click', function(){
@@ -343,6 +344,7 @@ vsAi.addEventListener('click', function(){
     vsPlayer.classList.remove('active');
     vsAi.classList.add('active');
     aiLevel.style.display = 'flex';
+    restartGame();
 })
 
 aiLevel.addEventListener('click', function(){
